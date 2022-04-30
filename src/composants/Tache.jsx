@@ -5,28 +5,20 @@ import formaterDateEtHeure from '../code/util';
 import IconButton from '@mui/material/IconButton';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
-// Boite de dialogue
-import Button from '@mui/material/Button';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
 import { useState, useEffect } from 'react';
+
+// Sous-composants
+import FrmSuppression from './FrmSuppression';
 
 export default function Tache({id, nom, fini, date, supprimerTache, basculerEtatTache}) {
 
-  const [ouvertConfirmation, setOuvertConfirmation] = useState(null);
+  const [ouvert, setOuvert] = useState(null);
 
-  function gererOuvertConfirmation () {
-    setOuvertConfirmation(true);
-  };
-  function gererFermer () {
-    setOuvertConfirmation(false);
+  function gererOuvert () {
+    setOuvert(true);
   };
 
-  function gererSupprimer() {
-    setOuvertConfirmation(false);
+  function gererSupprimerTache() {
     supprimerTache(id);
   }
 
@@ -38,29 +30,14 @@ export default function Tache({id, nom, fini, date, supprimerTache, basculerEtat
       </IconButton>
       <span className="texte">{nom}</span>
       <span className="date">({formaterDateEtHeure(date)})</span>
-      <IconButton color="error" className='btn-padding-reduit-droite' onClick={gererOuvertConfirmation}>
+      <IconButton color="error" className='btn-padding-reduit-droite' onClick={gererOuvert}>
         <RemoveCircleIcon />
       </IconButton>
-      {/* Confirmation supression */}
-      <Dialog
-        open={ouvertConfirmation}
-        onClose={gererFermer}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-      >
-        <DialogTitle id="alert-dialog-title">
-          {"Voulez-vous vraiment supprimer cette tâche?"}
-        </DialogTitle>
-        <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-          Elle sera perdue à jamais. Cette action est irréversible.
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={gererFermer}>Annuler</Button>
-          <Button onClick={gererSupprimer} autoFocus> Supprimer </Button>
-        </DialogActions>
-      </Dialog>
+      <FrmSuppression ouvert={ouvert} setOuvert={setOuvert}
+      gererActionSuppression={gererSupprimerTache}
+      texte1={"Voulez-vous vraiment supprimer cette tâche?"}
+      texte2={"Elle sera perdue à jamais."}
+      />
     </div>
   );
 }
