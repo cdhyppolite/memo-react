@@ -66,12 +66,12 @@ export default function Taches({etatTaches, utilisateur}) {
     tacheModele.basculer(utilisateur.uid, idTache, etatCompletee).then(
       // On modifie le tableau des tâches localement et on met à jour l'état React "taches"
       () => setTaches(
-              taches.map((tache) => {
-                if(tache.id === idTache) {
-                  tache.fini = !etatCompletee;
-                }
-                return tache;
-              })
+        taches.map((tache) => {
+          if(tache.id === idTache) {
+            tache.fini = !etatCompletee;
+          }
+          return tache;
+        })
       )
     )
   }
@@ -93,12 +93,9 @@ export default function Taches({etatTaches, utilisateur}) {
       </div>
       <div className="liste-taches">
         {
-          taches.map(tache => <Tache 
-                                key={tache.id} 
-                                {... tache} 
-                                supprimerTache={supprimerTache} 
-                                basculerEtatTache={basculerEtatTache}
-                              />)
+          taches.map(tache => <Tache  key={tache.id} {... tache} 
+            supprimerTache={supprimerTache} 
+            basculerEtatTache={basculerEtatTache} />)
         }
       </div>
     </section>

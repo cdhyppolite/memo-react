@@ -15,7 +15,14 @@ export default function FrmSuppression({ id=null, ouvert, setOuvert, gererAction
     
     function gererSupprimer() {
         setOuvert(false);
-        gererActionSuppression(id);
+        if (id==null) {
+            // Supprimer plusieurs taches
+            // alert("id null");
+            gererActionSuppression();
+        } else {
+            // Supprimer une tâche
+            gererActionSuppression(id);
+        }
     }
     return (
         <div>
@@ -30,7 +37,7 @@ export default function FrmSuppression({ id=null, ouvert, setOuvert, gererAction
             </DialogTitle>
             <DialogContent>
               <DialogContentText id="alert-dialog-description">
-              {texte1} Cette action est irréversible.
+              {texte2} Cette action est irréversible.
               </DialogContentText>
             </DialogContent>
             <DialogActions>
