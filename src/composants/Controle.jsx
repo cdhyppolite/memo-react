@@ -9,7 +9,9 @@ import * as tacheModele from '../code/tache-modele';
 // Sous-composants
 import FrmSuppression from './FrmSuppression';
 
-export default function Controle({etatTaches, utilisateur}) {  
+export default function Controle({etatTaches, utilisateur}) { 
+  
+  const nbTachesIncompletes = etatTaches[0].map(tache => tache.fini===false).filter(Boolean).length;
 
   const [ouvert, setOuvert] = useState(null);
 
@@ -32,7 +34,7 @@ export default function Controle({etatTaches, utilisateur}) {
         <ToggleButton value={false}>Actives</ToggleButton>
       </ToggleButtonGroup>
       <span className="compte">
-        ?? tâches actives
+        {nbTachesIncompletes !=0 ?  nbTachesIncompletes+' tâches à faire': ''}
       </span>
       <IconButton 
         aria-label="Supprimer toutes les tâches complétées"
