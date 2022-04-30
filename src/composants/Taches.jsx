@@ -35,7 +35,7 @@ export default function Taches({etatTaches, utilisateur}) {
       // Bonne idée : vider le formulaire pour la prochaine tâche
       e.target.reset();
       // Insérer la tâche dans Firestore
-      tacheModele.creer(uid, {texte: texte, completee: false}).then(
+      tacheModele.creer(uid, {nom: texte, fini: false}).then(
         // Actualiser l'état des taches en remplaçant le tableau des taches par 
         // une copie du tableau auquel on joint la tâche qu'on vient d'ajouter 
         // dans Firestore (et qui est retournée par la fonction creer()).
@@ -68,7 +68,7 @@ export default function Taches({etatTaches, utilisateur}) {
       () => setTaches(
               taches.map((tache) => {
                 if(tache.id === idTache) {
-                  tache.completee = !etatCompletee;
+                  tache.fini = !etatCompletee;
                 }
                 return tache;
               })
@@ -88,7 +88,7 @@ export default function Taches({etatTaches, utilisateur}) {
         />
       </form>
       <div className="titre-liste-taches">
-        <span className="texte" onClick={() => setTri(['texte', !tri[1]])}>Tâche</span>
+        <span className="texte" onClick={() => setTri(['nom', !tri[1]])}>Tâche</span>
         <span className="date" onClick={() => setTri(['date', !tri[1]])}>Date d'ajout</span>
       </div>
       <div className="liste-taches">
