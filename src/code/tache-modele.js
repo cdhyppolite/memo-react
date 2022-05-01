@@ -74,10 +74,11 @@ export async function basculer(uid, idTache, etatCompletee) {
 export async function supprimerCompletees(uid) {
     const collRef = collection(bdFirestore, collUtil, uid, collTaches);
 
-    /*const q = query(collRef, where("fini", "==", true));
-    const querySnapshot = await getDocs(q);
-    querySnapshot.forEach((doc) => {
-        console.log(doc.id, " => ", doc.data());
-    });*/
+    const listeTachesCompletes = await getDocs(query(collRef, where("fini", "==", true)));
+    listeTachesCompletes.forEach((doc) => {
+        // console.log(doc.id, " => ", doc.data());
+        // console.log(doc);
+        deleteDoc(doc.ref);
+    });
 
 }
