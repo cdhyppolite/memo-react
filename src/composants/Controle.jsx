@@ -9,7 +9,9 @@ import * as tacheModele from '../code/tache-modele';
 // Sous-composants
 import FrmSuppression from './FrmSuppression';
 
-export default function Controle({etatTaches, utilisateur}) { 
+export default function Controle({etatTaches, utilisateur}) {
+  
+  const uid = utilisateur.uid;
   
   const nbTachesIncompletes = etatTaches[0].map(tache => tache.fini===false).filter(Boolean).length;
 
@@ -29,9 +31,9 @@ export default function Controle({etatTaches, utilisateur}) {
         size="small" 
         exclusive={true} 
       >
-        <ToggleButton value={'toutes'}>Toutes</ToggleButton>
-        <ToggleButton value={true}>Complétées</ToggleButton>
-        <ToggleButton value={false}>Actives</ToggleButton>
+        <ToggleButton value={'toutes'} onClick={() => tacheModele.lireTout(uid,'desc',null)}>Toutes</ToggleButton>
+        <ToggleButton value={true} onClick={() => tacheModele.lireTout(uid,'desc',true)}>Complétées</ToggleButton>
+        <ToggleButton value={false} onClick={() => tacheModele.lireTout(uid,'desc',false)} >Actives</ToggleButton>
       </ToggleButtonGroup>
       <span className="compte">
         {nbTachesIncompletes !=0 ?  nbTachesIncompletes+' tâches à faire': ''}

@@ -26,6 +26,7 @@ export async function creer(uid, tache) {
 //  query(citiesRef, orderBy("state"), orderBy("population", "desc"));
 export async function lireTout(uid, tri, filtre) {
     if (filtre != null) {
+        console.log('lireToutFiltre: ' + filtre)
         return getDocs(query(collection(bdFirestore, collUtil, uid, collTaches),
             where("fini", "==", filtre),
             orderBy(tri[0], tri[1] ? 'desc' : 'asc'))).
