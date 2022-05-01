@@ -23,13 +23,14 @@ export async function creer(uid, tache) {
  * @param {Array} tri tableau contenant le champ de tri et le sens du tri  
  * @returns {Promise<any[]>} Promesse avec le tableau des tâches
  */
-//  query(citiesRef, orderBy("state"), orderBy("population", "desc"));
 export async function lireTout(uid, tri, filtre) {
     if (filtre != null) {
         console.log('lireToutFiltre: ' + filtre)
         return getDocs(query(collection(bdFirestore, collUtil, uid, collTaches),
-            where("fini", "==", filtre),
-            orderBy(tri[0], tri[1] ? 'desc' : 'asc'))).
+            where("fini", "==", filtre)
+            /*,
+                        orderBy(tri[0], tri[1] ? 'desc' : 'asc')*/
+        )).
         then(
             qs => qs.docs.map(doc => ({ id: doc.id, ...doc.data() }))
         );

@@ -12,10 +12,12 @@ import FrmSuppression from './FrmSuppression';
 export default function Controle({etatTaches, utilisateur}) {
   
   const uid = utilisateur.uid;
+  const [taches, setTaches] = etatTaches;
   
   const nbTachesIncompletes = etatTaches[0].map(tache => tache.fini===false).filter(Boolean).length;
 
-  const [ouvert, setOuvert] = useState(null);
+  // État du formulaire de supression
+  const [ouvert, setOuvert] = useState(false);
 
   function gererOuvert () {
     setOuvert(true);
@@ -25,15 +27,21 @@ export default function Controle({etatTaches, utilisateur}) {
     tacheModele.supprimerCompletees(utilisateur.uid);
   }
 
+  function gererFiltrer(filtre) {
+    tacheModele.lireTout(uid,'desc',filtre).then(
+      taches => setTaches(taches)
+    );
+  }
+
   return (
     <footer className="Controle">
       <ToggleButtonGroup 
         size="small" 
         exclusive={true} 
       >
-        <ToggleButton value={'toutes'} onClick={() => tacheModele.lireTout(uid,'desc',null)}>Toutes</ToggleButton>
-        <ToggleButton value={true} onClick={() => tacheModele.lireTout(uid,'desc',true)}>Complétées</ToggleButton>
-        <ToggleButton value={false} onClick={() => tacheModele.lireTout(uid,'desc',false)} >Actives</ToggleButton>
+        <ToggleButton value={'toutes'} onClick={() => gererFiltrer(null)}>Toutes</ToggleButton>
+        <ToggleButton value={true} onClick={() => gererFiltrer(true)}>Complétées</ToggleButton>
+        <ToggleButton value={false} onClick={() => gererFiltrer(false)} >Actives</ToggleButton>
       </ToggleButtonGroup>
       <span className="compte">
         {nbTachesIncompletes !=0 ?  nbTachesIncompletes+' tâches à faire': ''}

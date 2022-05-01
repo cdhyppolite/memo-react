@@ -12,7 +12,8 @@ import FrmSuppression from './FrmSuppression';
 
 export default function Tache({id, nom, fini, date, supprimerTache, basculerEtatTache}) {
 
-  const [ouvert, setOuvert] = useState(null);
+  // État du formulaire de supression
+  const [ouvert, setOuvert] = useState(false);
 
   function gererOuvert () {
     setOuvert(true);
