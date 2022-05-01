@@ -24,7 +24,11 @@ export default function Controle({etatTaches, utilisateur}) {
   };
   function gereSupprimerCompletees() {
     // alert('À implémenter au point B du TP#2');
-    tacheModele.supprimerCompletees(utilisateur.uid);
+    tacheModele.supprimerCompletees(utilisateur.uid).then(
+      () => setTaches(taches.filter(
+        tache => tache.fini === false
+      ))
+    );
   }
 
   function gererFiltrer(filtre) {

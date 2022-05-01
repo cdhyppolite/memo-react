@@ -28,8 +28,7 @@ export async function lireTout(uid, tri, filtre) {
         console.log('lireToutFiltre: ' + filtre)
         return getDocs(query(collection(bdFirestore, collUtil, uid, collTaches),
             where("fini", "==", filtre)
-            /*,
-                        orderBy(tri[0], tri[1] ? 'desc' : 'asc')*/
+            // ,orderBy(tri[0], tri[1] ? 'desc' : 'asc')
         )).
         then(
             qs => qs.docs.map(doc => ({ id: doc.id, ...doc.data() }))
@@ -73,5 +72,12 @@ export async function basculer(uid, idTache, etatCompletee) {
  * @returns {Promise<null>} Promesse sans paramètre
  */
 export async function supprimerCompletees(uid) {
+    const collRef = collection(bdFirestore, collUtil, uid, collTaches);
+
+    /*const q = query(collRef, where("fini", "==", true));
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+        console.log(doc.id, " => ", doc.data());
+    });*/
 
 }
