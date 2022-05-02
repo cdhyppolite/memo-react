@@ -16,6 +16,12 @@ export default function Controle({etatTaches, utilisateur}) {
   
   const nbTachesIncompletes = etatTaches[0].map(tache => tache.fini===false).filter(Boolean).length;
 
+  // Bouton toggle
+  const [alignment, setAlignment] = useState('toutes');
+  const handleChange = (event, newAlignment) => {
+    setAlignment(newAlignment);
+  };
+
   // État du formulaire de supression
   const [ouvert, setOuvert] = useState(false);
 
@@ -39,11 +45,14 @@ export default function Controle({etatTaches, utilisateur}) {
 
   return (
     <footer className="Controle">
-      <ToggleButtonGroup 
+      <ToggleButtonGroup
+        color="primary" 
         size="small" 
-        exclusive={true} 
+        value={alignment} 
+        exclusive={true}
+        onChange={handleChange}
       >
-        <ToggleButton value={'toutes'} onClick={() => gererFiltrer(null)}>Toutes</ToggleButton>
+        <ToggleButton value='toutes' onClick={() => gererFiltrer(null)}>Toutes</ToggleButton>
         <ToggleButton value={true} onClick={() => gererFiltrer(true)}>Complétées</ToggleButton>
         <ToggleButton value={false} onClick={() => gererFiltrer(false)} >Actives</ToggleButton>
       </ToggleButtonGroup>
