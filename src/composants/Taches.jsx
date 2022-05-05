@@ -2,17 +2,20 @@ import Tache from './Tache';
 import './Taches.scss';
 import * as tacheModele from '../code/tache-modele';
 import { useState, useEffect } from 'react';
+import {alignment} from './Controle';
 
-export default function Taches({etatTaches, utilisateur}) {
+export default function Taches({etatTaches, utilisateur, filtreActuel}) {
   const uid = utilisateur.uid;
   const [taches, setTaches] = etatTaches;
   const [tri, setTri] = useState(['date', true]);
+  // Bouton toggle
+  const [etatFiltre, setEtatFiltre] = filtreActuel;
 
   /**
    * On cherche les tâches une seule fois après l'affichage du composant
    */
   useEffect(() => 
-    tacheModele.lireTout(uid, tri, null).then(
+    tacheModele.lireTout(uid, tri).then(
       taches => setTaches(taches)
     )
   , [setTaches, uid, tri]);

@@ -17,6 +17,9 @@ export default function Appli() {
   // État des tâches
   const etatTaches = useState([]);
 
+  // Bouton toggle
+  const filtreActuel = useState('toutes');
+
   return (
     utilisateur ?
       <div className="Appli">
@@ -24,8 +27,8 @@ export default function Appli() {
           <img src={logo} className="appli-logo" alt="Memo" />
           <Utilisateur utilisateur={utilisateur} />
         </header>
-        <Taches etatTaches={etatTaches} utilisateur={utilisateur} />
-        <Controle etatTaches={etatTaches} utilisateur={utilisateur} />
+        <Taches etatTaches={etatTaches} utilisateur={utilisateur} filtreActuel={filtreActuel}/>
+        <Controle etatTaches={etatTaches} utilisateur={utilisateur} filtreActuel={filtreActuel}/>
       </div>
     :
       <Accueil setUtilisateur={setUtilisateur} />

@@ -9,17 +9,18 @@ import * as tacheModele from '../code/tache-modele';
 // Sous-composants
 import FrmSuppression from './FrmSuppression';
 
-export default function Controle({etatTaches, utilisateur}) {
+export default function Controle({etatTaches, utilisateur, filtreActuel}) {
+
+  // Bouton toggle
+  const [etatFiltre, setEtatFiltre] = filtreActuel;
   
   const uid = utilisateur.uid;
   const [taches, setTaches] = etatTaches;
   
   const nbTachesIncompletes = etatTaches[0].map(tache => tache.fini===false).filter(Boolean).length;
 
-  // Bouton toggle
-  const [alignment, setAlignment] = useState('toutes');
-  const handleChange = (event, newAlignment) => {
-    setAlignment(newAlignment);
+  const gererFiltreBtn = (event, nouvelEtatFiltre) => {
+    setEtatFiltre(nouvelEtatFiltre);
   };
 
   // État du formulaire de supression
@@ -59,9 +60,9 @@ export default function Controle({etatTaches, utilisateur}) {
       <ToggleButtonGroup
         // color="primary" 
         size="small" 
-        value={alignment} 
+        value={etatFiltre} 
         exclusive={true}
-        onChange={handleChange}
+        onChange={gererFiltreBtn}
       >
         <ToggleButton value='toutes' onClick={() => gererFiltrer(null)}>Toutes</ToggleButton>
         <ToggleButton value={true} onClick={() => gererFiltrer(true)}>Complétées</ToggleButton>
