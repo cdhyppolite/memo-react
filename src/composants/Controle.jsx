@@ -57,7 +57,7 @@ export default function Controle({etatTaches, utilisateur}) {
   return (
     <footer className="Controle">
       <ToggleButtonGroup
-        color="primary" 
+        // color="primary" 
         size="small" 
         value={alignment} 
         exclusive={true}
@@ -68,8 +68,9 @@ export default function Controle({etatTaches, utilisateur}) {
         <ToggleButton value={false} onClick={() => gererFiltrer(false)} >Actives</ToggleButton>
       </ToggleButtonGroup>
       <span className="compte">
-        {nbTachesIncompletes !=0 ?  nbTachesIncompletes+' tâches à faire': ''}
+        {nbTachesIncompletes !=0 ?  nbTachesIncompletes+' tâches à faire': 'Aucune tâche à faire'}
       </span>
+
       <IconButton 
         aria-label="Supprimer toutes les tâches complétées"
         color="error" 
@@ -78,6 +79,7 @@ export default function Controle({etatTaches, utilisateur}) {
       >
         <DeleteIcon/>
       </IconButton>
+
       <FrmSuppression ouvert={ouvert} setOuvert={setOuvert}
       gererActionSuppression={gereSupprimerCompletees}
       texte1={"Vous êtes sous le point de supprimer toutes les tâches complétées."}
