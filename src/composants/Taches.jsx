@@ -25,7 +25,7 @@ export default function Taches({etatTaches, utilisateur, filtreActuel}) {
       ))
     )
 
-    , [setTaches, uid, tri]);
+    , [setTaches, uid, tri,etatFiltre]);
 
   /**
    * Gérer le formulaire d'ajout de nouvelle tâche en appelant la méthode 

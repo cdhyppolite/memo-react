@@ -30,28 +30,11 @@ export default function Controle({etatTaches, utilisateur, filtreActuel}) {
     setOuvert(true);
   };
   function gereSupprimerCompletees() {
-    // alert('À implémenter au point B du TP#2');
-    tacheModele.supprimerCompletees(utilisateur.uid).then(
+    tacheModele.supprimerCompletees(uid).then(
       () => setTaches(taches.filter(
         tache => tache.fini === false
       ))
     );
-  }
-
-  function gererFiltrer(filtre) {
-    // Affichage des tâches filtrées
-    if (filtre!='toutes') {
-      tacheModele.lireTout(uid, ['date', true]).then(
-        taches => setTaches(taches.filter(
-          tache => tache.fini === filtre
-        ))
-      )
-      // Affichage de toutes les tâches
-    } else {
-      tacheModele.lireTout(uid, ['date', true]).then(
-        taches => setTaches(taches)
-      )
-    }
   }
 
   return (
@@ -63,9 +46,9 @@ export default function Controle({etatTaches, utilisateur, filtreActuel}) {
         exclusive={true}
         onChange={gererFiltreBtn}
       >
-        <ToggleButton value='toutes' onClick={() => gererFiltrer('toutes')}>Toutes</ToggleButton>
-        <ToggleButton value={true} onClick={() => gererFiltrer(true)}>Complétées</ToggleButton>
-        <ToggleButton value={false} onClick={() => gererFiltrer(false)} >Actives</ToggleButton>
+        <ToggleButton value='toutes'>Toutes</ToggleButton>
+        <ToggleButton value={true}>Complétées</ToggleButton>
+        <ToggleButton value={false}>Actives</ToggleButton>
       </ToggleButtonGroup>
       <span className="compte">
         {nbTachesIncompletes !=0 ?  nbTachesIncompletes+' tâches à faire': 'Aucune tâche à faire'}
