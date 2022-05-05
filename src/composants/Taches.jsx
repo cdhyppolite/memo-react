@@ -39,11 +39,21 @@ export default function Taches({etatTaches, utilisateur, filtreActuel}) {
       e.target.reset();
       // Insérer la tâche dans Firestore
       tacheModele.creer(uid, {nom: texte, fini: false}).then(
-        // Actualiser l'état des taches en remplaçant le tableau des taches par 
+
+        (etatFiltre=="toutes") ?
+        // Actualiser l'état des taches en remplaçant le tableau des taches par
         // une copie du tableau auquel on joint la tâche qu'on vient d'ajouter 
         // dans Firestore (et qui est retournée par la fonction creer()).
         tache => setTaches([tache, ...taches])
+        :
+        // Relire le tableau complet depuis firebase car le tableau actuel ne
+        // contient que les tâches selon le filtre précédent
+        tacheModele.lireTout(uid,tri).then(
+          taches => setTaches(taches)
+        )
       );
+      // Changer le buton
+      setEtatFiltre("toutes");
     }
   }
 

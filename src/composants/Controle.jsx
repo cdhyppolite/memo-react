@@ -39,17 +39,16 @@ export default function Controle({etatTaches, utilisateur, filtreActuel}) {
   }
 
   function gererFiltrer(filtre) {
-    // const tab = tacheModele.lireTout(uid, ['date', true], null);
-    // console.log(tab);
-
-    if (filtre!=null) {
-      tacheModele.lireTout(uid, ['date', true], null).then(
+    // Affichage des tâches filtrées
+    if (filtre!='toutes') {
+      tacheModele.lireTout(uid, ['date', true]).then(
         taches => setTaches(taches.filter(
           tache => tache.fini === filtre
         ))
       )
+      // Affichage de toutes les tâches
     } else {
-      tacheModele.lireTout(uid, ['date', true], null).then(
+      tacheModele.lireTout(uid, ['date', true]).then(
         taches => setTaches(taches)
       )
     }
@@ -64,7 +63,7 @@ export default function Controle({etatTaches, utilisateur, filtreActuel}) {
         exclusive={true}
         onChange={gererFiltreBtn}
       >
-        <ToggleButton value='toutes' onClick={() => gererFiltrer(null)}>Toutes</ToggleButton>
+        <ToggleButton value='toutes' onClick={() => gererFiltrer('toutes')}>Toutes</ToggleButton>
         <ToggleButton value={true} onClick={() => gererFiltrer(true)}>Complétées</ToggleButton>
         <ToggleButton value={false} onClick={() => gererFiltrer(false)} >Actives</ToggleButton>
       </ToggleButtonGroup>
