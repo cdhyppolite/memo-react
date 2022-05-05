@@ -20,7 +20,9 @@ export default function Controle({etatTaches, utilisateur, filtreActuel}) {
   const nbTachesIncompletes = etatTaches[0].map(tache => tache.fini===false).filter(Boolean).length;
 
   const gererFiltreBtn = (event, nouvelEtatFiltre) => {
-    setEtatFiltre(nouvelEtatFiltre);
+    // console.log("nouvelEtatFiltre: ",nouvelEtatFiltre,etatFiltre);
+    if (nouvelEtatFiltre!=null)
+      setEtatFiltre(nouvelEtatFiltre);
   };
 
   // État du formulaire de supression
