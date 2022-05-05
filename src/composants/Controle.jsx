@@ -38,9 +38,20 @@ export default function Controle({etatTaches, utilisateur}) {
   }
 
   function gererFiltrer(filtre) {
-    tacheModele.lireTout(uid,'desc',filtre).then(
-      taches => setTaches(taches)
-    );
+    // const tab = tacheModele.lireTout(uid, ['date', true], null);
+    // console.log(tab);
+
+    if (filtre!=null) {
+      tacheModele.lireTout(uid, ['date', true], null).then(
+        taches => setTaches(taches.filter(
+          tache => tache.fini === filtre
+        ))
+      )
+    } else {
+      tacheModele.lireTout(uid, ['date', true], null).then(
+        taches => setTaches(taches)
+      )
+    }
   }
 
   return (

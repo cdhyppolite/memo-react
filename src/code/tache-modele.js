@@ -24,7 +24,7 @@ export async function creer(uid, tache) {
  * @returns {Promise<any[]>} Promesse avec le tableau des tâches
  */
 export async function lireTout(uid, tri, filtre) {
-    if (filtre != null) {
+    /*if (filtre != null) {
         console.log('lireToutFiltre: ' + filtre)
         return getDocs(query(collection(bdFirestore, collUtil, uid, collTaches),
             where("fini", "==", filtre),
@@ -33,14 +33,14 @@ export async function lireTout(uid, tri, filtre) {
         then(
             qs => qs.docs.map(doc => ({ id: doc.id, ...doc.data() }))
         );
-    } else {
-        return getDocs(query(collection(bdFirestore, collUtil, uid, collTaches),
-            orderBy('fini', 'asc'),
-            orderBy(tri[0], tri[1] ? 'desc' : 'asc'))).
-        then(
-            qs => qs.docs.map(doc => ({ id: doc.id, ...doc.data() }))
-        );
-    }
+    } else {*/
+    return getDocs(query(collection(bdFirestore, collUtil, uid, collTaches),
+        orderBy('fini', 'asc'),
+        orderBy(tri[0], tri[1] ? 'desc' : 'asc'))).
+    then(
+        qs => qs.docs.map(doc => ({ id: doc.id, ...doc.data() }))
+    );
+    // }
 }
 
 /**
