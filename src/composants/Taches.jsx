@@ -3,9 +3,10 @@ import './Taches.scss';
 import * as tacheModele from '../code/tache-modele';
 import { useState, useEffect } from 'react';
 
-export default function Taches({etatTaches, utilisateur, filtreActuel}) {
+export default function Taches({etatTaches, utilisateur, filtreActuel, nbTotalTaches}) {
   const uid = utilisateur.uid;
   const [taches, setTaches] = etatTaches;
+  const [nbTaches, setNbTaches] = nbTotalTaches;
   const [tri, setTri] = useState(['date', true]);
   // Bouton toggle
   const [etatFiltre, setEtatFiltre] = filtreActuel;
@@ -13,19 +14,22 @@ export default function Taches({etatTaches, utilisateur, filtreActuel}) {
   /**
    * On cherche les tâches une seule fois après l'affichage du composant
    */
-  useEffect(() =>
-    (etatFiltre == "toutes") ?
+   useEffect(() =>
 
-    tacheModele.lireTout(uid, tri).then(
-      taches => setTaches(taches)
-    ) :
-    tacheModele.lireTout(uid,tri).then(
-      taches => setTaches(taches.filter(
-        tache => tache.fini === etatFiltre
-      ))
-    )
+   tacheModele.lireTout(uid, tri).then(
+       taches => {
+         if (etatFiltre == "toutes")
+           setTaches(taches)
+         else {
+           setTaches(taches.filter(
+           tache => tache.fini === etatFiltre
+         ))
+         setNbTaches(taches.length);
+        }
+       }
+     )
 
-    , [setTaches, uid, tri,etatFiltre]);
+     , [setTaches, uid, tri, etatFiltre]);
 
   /**
    * Gérer le formulaire d'ajout de nouvelle tâche en appelant la méthode 

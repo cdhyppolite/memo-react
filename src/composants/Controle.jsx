@@ -9,7 +9,7 @@ import * as tacheModele from '../code/tache-modele';
 // Sous-composants
 import FrmSuppression from './FrmSuppression';
 
-export default function Controle({etatTaches, utilisateur, filtreActuel}) {
+export default function Controle({etatTaches, utilisateur, filtreActuel, nbTotalTaches}) {
 
   // Bouton toggle
   const [etatFiltre, setEtatFiltre] = filtreActuel;
@@ -17,7 +17,9 @@ export default function Controle({etatTaches, utilisateur, filtreActuel}) {
   const uid = utilisateur.uid;
   const [taches, setTaches] = etatTaches;
   
-  const nbTachesIncompletes = etatTaches[0].map(tache => tache.fini===false).filter(Boolean).length;
+  const nbTachesIncompletes = (etatFiltre!=true) ?
+    etatTaches[0].map(tache => tache.fini===false).filter(Boolean).length :
+    nbTotalTaches[0]-etatTaches[0].length;
 
   const gererFiltreBtn = (event, nouvelEtatFiltre) => {
     // console.log("nouvelEtatFiltre: ",nouvelEtatFiltre,etatFiltre);
