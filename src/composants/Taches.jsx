@@ -89,14 +89,22 @@ export default function Taches({etatTaches, utilisateur, filtreActuel, nbTotalTa
   function basculerEtatTache(idTache, etatCompletee) {
     tacheModele.basculer(utilisateur.uid, idTache, etatCompletee).then(
       // On modifie le tableau des tâches localement et on met à jour l'état React "taches"
-      () => setTaches(
-        taches.map((tache) => {
-          if(tache.id === idTache) {
-            tache.fini = !etatCompletee;
-          }
-          return tache;
-        })
-      )
+      () => {
+        // Basculer avec le filtre "toutes"
+        if (etatFiltre == "toutes")
+          setTaches(
+            taches.map((tache) => {
+              if (tache.id === idTache) {
+                tache.fini = !etatCompletee;
+              }
+              return tache;
+            })
+          )
+        // Basculer avec un autre filtre
+        else setTaches(taches.filter(
+          tache => tache.id !== idTache
+        ))
+      }
     )
   }
 
